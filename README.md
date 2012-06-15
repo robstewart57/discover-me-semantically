@@ -8,6 +8,10 @@ Discover·me·Semantically eases the pain of:
 
 This work has been carried out in the [SerenA](http://www.serena.ac.uk) project, as part of a larger investigation on the potential of serendipitous discovery with linked open data.
 
+## Example
+
+Here is an instance of [Discover·me·Semantically](http://serena.macs.hw.ac.uk/serena/discover-me-semantically/) , to try it out for yourself.
+
 # Installation
 
 - PHP rdf libraries
