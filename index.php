@@ -43,9 +43,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>
            
             $(document).ready(function() {
                 
-                var interestsArray = new Array();
-            var expertiseArray = new Array();
-            var goalsArray = new Array();
+		var interestsArray = new Array();
+		var expertiseArray = new Array();
+		var goalsArray = new Array();
                 
                 var personalInterestsTable = $("#tableInterests");
                 var professionalExpertiseTable = $("#tableExpertise");
