@@ -1,0 +1,218 @@
+.ui-autocomplete {
+    height: 150px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+a {
+    font-size: 10px;
+}
+
+button {
+    -webkit-box-shadow: rgba(0, 0, 0, 0.0976562) 0px 1px 0px 0px;
+    background-color: #EEE;
+    border: 1px solid #999;
+    color: #666;
+    font-family: 'Lucida Grande', Tahoma, Verdana, Arial, Sans-serif;
+    font-size: 9px;
+    font-weight: bold;
+    padding: 2px 6px;
+    height: 18px;
+}
+
+input {
+    -webkit-box-shadow: rgba(0, 0, 0, 0.0976562) 0px 1px 0px 0px;
+    background-color: #EEE;
+    border: 1px dotted #999;
+    color: #666;
+    font-family: 'Lucida Grande', Tahoma, Verdana, Arial, Sans-serif;
+    font-size: 12px;
+    font-weight: bold;
+    padding: 2px 6px;
+}
+
+
+.inputProcess {
+    display: inline-block;
+    outline: none;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    font: 14px/100% Arial, Helvetica, sans-serif;
+    padding: .5em 2em .55em;
+    text-shadow: 0 1px 1px rgba(0,0,0,.3);
+    -webkit-border-radius: .5em; 
+    -moz-border-radius: .5em;
+    border-radius: .5em;
+    -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.2);
+    -moz-box-shadow: 0 1px 2px rgba(0,0,0,.2);
+    box-shadow: 0 1px 2px rgba(0,0,0,.2);
+    border: 1px solid #999; 
+}
+.inputProcess:hover {
+    text-decoration: none;
+    color: black;
+}
+.inputProcess:active {
+    position: relative;
+    top: 1px;
+}
+
+body{
+    position:relative;
+    margin-left:auto;
+    margin-right:auto;
+    /* top:5px; */
+    width:1200px;
+    border:0px solid black;
+    font-size: small;
+}
+
+
+
+h2 {
+    display: block;
+    margin-top: 0.5em;
+    font-family: Verdana;
+    font-size: 1.5em;
+    font-weight: normal;
+    letter-spacing: 0em;
+    text-shadow: none;
+    color: rgb(142,11,0);
+}
+
+h3 {
+    display: block;
+    margin-top: 0.5em;
+    font-family: Verdana;
+    font-size: 1em;
+    font-weight: normal;
+    letter-spacing: 0em;
+    text-shadow: none;
+    color: rgb(142,11,0);
+}
+
+h4 {
+    display: block;
+    margin-top: 0.5em;
+    margin-left: 1em;
+    font-family: Verdana;
+    font-size: 1em;
+    font-weight: normal;
+    letter-spacing: 0em;
+    text-shadow: none;
+    color: rgb(142,11,0);
+    font-style:italic;
+}
+
+input:focus
+{ 
+    background-color: rgb(255,252,170);
+}
+
+textarea:focus
+{ 
+    background-color: rgb(255,252,170);
+}
+
+
+.centerAll
+{
+    text-align:center;
+}
+
+pre {
+    font-family: "courier new", courier, monospace;
+    font-size: 11px;
+}
+
+.tinyFont {
+    font-size:x-small
+}
+
+.ui-autocomplete-loading {
+    background:url('../img/loading.gif')
+        no-repeat right;
+}
+
+
+
+#footer {
+    height: 90px;
+    padding-top:10px;
+    position:fixed;
+    bottom:0px;
+    width:100%;
+}
+
+
+
+td.footerTableCell {
+    padding-right: 40px;
+    padding-left: 40px;
+    text-align: center;
+}
+
+td.mainTableCell {
+    min-width: 400px;
+    padding-right: 20px;
+    padding-left: 20px;
+    vertical-align: top;
+}
+
+td.rdfOutputCell {
+    vertical-align: top;
+}
+
+
+a.footerLink {
+    font-size: 12px;
+}
+
+
+#rdfPrettyPrint {
+    width: 700px;
+    overflow-x: hidden;  
+    font-size: 10px;
+    text-align: left;
+}
+
+img.topLogo {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+table.inputTable {
+    margin: auto;
+} 
+
+tr.whatNextRow {
+    height: 120px;
+    text-align: center;
+}
+
+
+div.footerWrapper {
+    position: absolute;
+    bottom: 0px;
+    width: 100%
+}
+
+div.footerTDiv {
+    margin: 0 auto;
+    width: 60%;
+}
+
+div.centerButton {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100px;
+    text-align: center;
+}
+
+div.centerDiv {
+    margin: auto;
+    width: 800px;
+}
