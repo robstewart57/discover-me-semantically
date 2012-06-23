@@ -160,7 +160,9 @@ define("FOAF", "http://xmlns.com/foaf/0.1/");
 define("CCO", "http://purl.org/ontology/cco/mappings#");
 define("SERENA", "http://www.serena.ac.uk/property/");
 define("RDFS", "http://www.w3.org/2000/01/rdf-schema#");
+define("RDF", "http://www.w3.org/1999/02/22-rdf-syntax-ns#");
 define("OWL", "http://www.w3.org/2002/07/owl#");
+
 
 $model = ModelFactory::getDefaultModel();
 
@@ -171,7 +173,14 @@ $userURI = toSerenAURI($fileName);
 
 $stmtsAll = array();
 
-/* First get the singleton fields from the form */
+/* First specify foaf:Person type */
+$subjRes = new resource($userURI);
+$predicateRes = new resource(RDF . "type");
+$objRes = new resource(FOAF . "Person");
+$stmt = new Statement($subjRes,$predicateRes,$objRes);
+$stmtsAll = array($stmt);
+
+/* Now get the singleton fields from the form */
 $stmts = mapSingleFormField($userURI, "name", FOAF . "name", "", false);
 $stmtsAll = array_merge($stmtsAll, $stmts);
 
@@ -217,6 +226,7 @@ $ser->addNamespacePrefix("foaf", FOAF);
 $ser->addNamespacePrefix("cco", CCO);
 $ser->addNamespacePrefix("serena", SERENA);
 $ser->addNamespacePrefix("rdfs", RDFS);
+$ser->addNamespacePrefix("rdf", RDF);
 $ser->addNamespacePrefix("owl", OWL);
 
 $rawRDF = $ser->serialize($model);
