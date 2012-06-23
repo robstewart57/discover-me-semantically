@@ -124,9 +124,25 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>
 
         </script>
 
+<script type="text/javascript">
+			    
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-4596898-5']);
+_gaq.push(['_trackPageview']);
+
+(function() {
+  var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+  ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+  var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+})();
+
+</script>
+
     </head>
 
     <body>
+
+<a href="https://github.com/robstewart57/discover-me-semantically" target="_blank"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png" alt="Fork me on GitHub"></a>
 
         <form name="input" action="process.php" method="post" >
 
