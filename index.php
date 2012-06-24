@@ -31,7 +31,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>
 
         <link href="css/prettify.css" type="text/css" rel="stylesheet" />
         <script type="text/javascript" src="js/prettify.js"></script>
-        <script type="text/javascript" src="js/jquery.caret.js"></script>
+        <script type="text/javascript" src="js/jquery.infieldlabel.js"></script>
 
         <script>            
             var goalOptionsMap = {};
@@ -54,23 +54,25 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>
                 var addInterestFunc = function() {
                     var i = interestsArray.length + 1;
                     var interestField = "personal_interest" + i;
-                    var newRow = $("<tr><td>"+i+") </td><td><input id=\"" + interestField + "\" name=\"" + interestField + "\" size=\"50\" type=\"text\" title=\"Add an interest...\" class=\"auto-hint\"/></td></tr>");
+		    var interestLabel = "interestLbl" + i;
+                    var newRow = $("<tr><td>"+i+") </td><td><p><input id=\"" + interestField + "\" name=\"" + interestField + "\" size=\"50\" type=\"text\"/><label id=\""+interestLabel + "\" for=\"" + interestField + "\">Add an interest...</label></p></td></tr>");
                     personalInterestsTable.append(newRow);
                     interestsArray.push( { item: i, field: interestField } );
                     document.getElementById('interests_serialized').value=encodeURIComponent(JSON.stringify(interestsArray));
                     $("input#" + interestField).autocomplete( autoCompleteDBpediaConfig );
-		    addHint($("input#" + interestField));
-                }
+		    $("#" + interestLabel).inFieldLabels();
+	        }
 
                 var addExpertiseFunc = function() {
                     var i = expertiseArray.length + 1;
                     var expertiseField = "professional_expertise" + i;
-                    var newRow = $("<tr><td>"+i+") </td><td><input id=\"" + expertiseField + "\" name=\"" + expertiseField + "\" size=\"50\" type=\"text\" title=\"Add an area of expertise...\" class=\"auto-hint\"/></td></tr>");
+		    var expertiseLabel = "expertiseLbl" + i;
+                    var newRow = $("<tr><td>"+i+") </td><td><p><input id=\"" + expertiseField + "\" name=\"" + expertiseField + "\" size=\"50\" type=\"text\"/><label id=\"" + expertiseLabel + "\" for=\"" + expertiseField + "\">Add and area of expertise</label></p></td></tr>");
                     professionalExpertiseTable.append(newRow);
                     expertiseArray.push( { item: i, field: expertiseField } );
                     document.getElementById('expertise_serialized').value=encodeURIComponent(JSON.stringify(expertiseArray));
                     $("input#" + expertiseField).autocomplete( autoCompleteDBpediaConfig );
-                    addHint($("input#" + expertiseField));
+		    $("#" + expertiseLabel).inFieldLabels();
                 }
 
                 var addGoalFunc = function() {
@@ -100,7 +102,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>
                 $("input#dblp_uri").autocomplete( autoCompleteDBLPAuthorConfig ); 
 
 		/* Add the grey input prompts to all input text boxes */
-		addHint($("input"));
+		$("label").inFieldLabels();
 
                 $("#btnAddInterest").ready( addInterestFunc );
                 $("#btnAddExpertise").ready( addExpertiseFunc );
@@ -149,7 +151,7 @@ _gaq.push(['_trackPageview']);
 
 <a href="https://github.com/robstewart57/discover-me-semantically" target="_blank"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_gray_6d6d6d.png" alt="Fork me on GitHub"></a>
 
-        <form name="input" action="process.php" method="post" >
+        <form name="input" id="inputForm" action="process.php" method="post" >
 
             <img class="topLogo" src="img/logo.png"/>
 
@@ -164,21 +166,46 @@ _gaq.push(['_trackPageview']);
 
                         <table>
                             <tr>
-                                <td>Name:</td><td><input id="name" name="name" type="text" title="Your full name..." size="50" class="auto-hint"/></td>
+                                <td>Name:</td><td>
+                     <p>
+                     <input id="name" name="name" type="text" size="50" />
+                     <label for="name">Your full name...</label>
+                     </p>
+                                </td>
                             </tr>
                             <tr>
-                                <td>Institute:</td><td><input id="institute" name="institute" size="50" type="text" title="Your academic institute..." class="auto-hint"/></td>
+                                <td>Institute:</td><td>
+                     <p>
+                     <input id="institute" name="institute" size="50" type="text" />
+                     <label for="institute">Your academic institute...</label>
+                     </p>
+                                </td>
                             </tr>
                             <tr>
-                                <td>Homepage:</td><td><input id="homepage" name="homepage" size="50" type="text" title="http://" class="auto-hint"/></td>
+                                <td>Homepage:</td><td>
+                      <p>
+                      <input id="homepage" name="homepage" size="50" type="text"/>
+                      <label for="homepage">http://</label>
+                      </p>
+                                </td>
                             </tr>
 
                             <tr>
-                                <td>Location:</td><td><input id="location" name="location" size="50" type="text" title="Where do you live..." class="auto-hint" /></td> 
+                                <td>Location:</td><td>
+                      <p>
+                      <input id="location" name="location" size="50" type="text" />
+                      <label for="location">Where do you live...</label>
+                      </p>
+                                </td> 
                             </tr>
 
                             <tr>
-                                <td>DBLP:</td><td><input id="dblp_uri" name="dblp_uri" size="50" type="text" title="Search for your DBLP URI by name..." class="auto-hint"/></td>
+                                <td>DBLP:</td><td>
+                      <p>
+                      <input id="dblp_uri" name="dblp_uri" size="50" type="text"/>
+                      <label for="dblp_uri">Search for your DBLP URI by name...</label>
+                      </p>
+                                </td>
                             </tr>
                         </table>
                         <br>

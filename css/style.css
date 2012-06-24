@@ -196,7 +196,7 @@ div.footerWrapper {
 
 div.footerTDiv {
     margin: 0 auto;
-    width: 50%;
+    width: 650px;
 }
 
 div.centerButton {
@@ -209,13 +209,33 @@ div.centerButton {
 
 div.centerDiv {
     margin: auto;
+    width: 800px;
 }
 
-.input-prompt {
-  position: absolute;
-  font-style: italic;
-  color: #aaa;
-  margin: 0.2em 0 0 0.5em;
+/* .input-prompt { */
+/*   position: absolute; */
+/*   font-style: italic; */
+/*   color: #aaa; */
+/*   margin: 0.2em 0 0 0.5em; */
+/* } */
+
+/*  .auto-hint { color: #AAAAAA; } */
+
+form {
+    position:relative
 }
 
- .auto-hint { color: #AAAAAA; }
+label  { 
+    position:absolute; 
+    top:3px; 
+    left:10px;
+}
+
+
+p {
+    position: relative;
+    margin-top: 0.3em;
+    margin-bottom: 0em;
+    font-style: italic;
+    color: #3787d2;
+}
