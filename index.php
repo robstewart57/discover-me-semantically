@@ -31,18 +31,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>
 
         <link href="css/prettify.css" type="text/css" rel="stylesheet" />
         <script type="text/javascript" src="js/prettify.js"></script>
+        <script type="text/javascript" src="js/jquery.caret.js"></script>
 
-        <script>
-            
+        <script>            
             var goalOptionsMap = {};
         </script>
 
         <script type="text/javascript" src="js/auto-complete-configs.js"></script>
 
         <script>
-           
+
             $(document).ready(function() {
-                
+
 		var interestsArray = new Array();
 		var expertiseArray = new Array();
 		var goalsArray = new Array();
@@ -54,21 +54,23 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>
                 var addInterestFunc = function() {
                     var i = interestsArray.length + 1;
                     var interestField = "personal_interest" + i;
-                    var newRow = $("<tr><td>"+i+") </td><td><input id=\"" + interestField + "\" name=\"" + interestField + "\" size=\"40\" /></td></tr>");
+                    var newRow = $("<tr><td>"+i+") </td><td><input id=\"" + interestField + "\" name=\"" + interestField + "\" size=\"50\" type=\"text\" title=\"Add an interest...\" class=\"auto-hint\"/></td></tr>");
                     personalInterestsTable.append(newRow);
                     interestsArray.push( { item: i, field: interestField } );
                     document.getElementById('interests_serialized').value=encodeURIComponent(JSON.stringify(interestsArray));
                     $("input#" + interestField).autocomplete( autoCompleteDBpediaConfig );
+		    addHint($("input#" + interestField));
                 }
 
                 var addExpertiseFunc = function() {
                     var i = expertiseArray.length + 1;
                     var expertiseField = "professional_expertise" + i;
-                    var newRow = $("<tr><td>"+i+") </td><td><input id=\"" + expertiseField + "\" name=\"" + expertiseField + "\" size=\"40\" /></td></tr>");
+                    var newRow = $("<tr><td>"+i+") </td><td><input id=\"" + expertiseField + "\" name=\"" + expertiseField + "\" size=\"50\" type=\"text\" title=\"Add an area of expertise...\" class=\"auto-hint\"/></td></tr>");
                     professionalExpertiseTable.append(newRow);
                     expertiseArray.push( { item: i, field: expertiseField } );
                     document.getElementById('expertise_serialized').value=encodeURIComponent(JSON.stringify(expertiseArray));
                     $("input#" + expertiseField).autocomplete( autoCompleteDBpediaConfig );
+                    addHint($("input#" + expertiseField));
                 }
 
                 var addGoalFunc = function() {
@@ -76,7 +78,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>
                     var goalOptionField = "goalOption" + i;
                     var goalTextField = "goalText" + i;
 
-                    var newRow = $("<tr><td><select name=\"" + goalOptionField + "\" id=\"" + goalOptionField + "\" ></td><td><input id=\"" + goalTextField + "\" name=\""+ goalTextField + "\" size=\"30\" /></td></tr>");
+                    var newRow = $("<tr><td><select name=\"" + goalOptionField + "\" id=\"" + goalOptionField + "\" ></td><td><input id=\"" + goalTextField + "\" name=\""+ goalTextField + "\" size=\"30\" class=\"auto-hint\" /></td></tr>");
                     goalsTable.append(newRow);
 
                     $('#'+goalOptionField).append("<option value=\"http://www.serena.ac.uk/property/goalFindOutAbout\">find out about</option>");
@@ -87,21 +89,24 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>
                     goalsArray.push( { item: i, goalType: goalOptionField, field: goalTextField } );
                     document.getElementById('goals_serialized').value=encodeURIComponent(JSON.stringify(goalsArray));
                     var optionBox=jQuery("#" + goalOptionField);
-                    /* var textBox=jQuery("#" + goalTextField);  */
                     goalOptionsMap[goalOptionField]=goalTextField;
                     optionBox.change( goalChanged );
                     optionBox.trigger('change');
                 }
                 
-                $("input#autocomplete").autocomplete( autoCompleteDBpediaConfig );
+                /* $("input#autocomplete").autocomplete( autoCompleteDBpediaConfig ); */
                 $("input#institute").autocomplete( autoCompleteDBpediaConfig );
                 $("input#location").autocomplete( autoCompleteDBpediaLocationConfig );
                 $("input#dblp_uri").autocomplete( autoCompleteDBLPAuthorConfig ); 
+
+		/* Add the grey input prompts to all input text boxes */
+		addHint($("input"));
 
                 $("#btnAddInterest").ready( addInterestFunc );
                 $("#btnAddExpertise").ready( addExpertiseFunc );
                 $("#btnAddGoal").ready( addGoalFunc );
 
+		/* Create one input box for each */
                 $("#btnAddInterest").click( addInterestFunc );
                 $("#btnAddExpertise").click( addExpertiseFunc );
                 $("#btnAddGoal").click( addGoalFunc );
@@ -159,21 +164,21 @@ _gaq.push(['_trackPageview']);
 
                         <table>
                             <tr>
-                                <td>Name:</td><td><input id="name" name="name" /></td>
+                                <td>Name:</td><td><input id="name" name="name" type="text" title="Your full name..." size="50" class="auto-hint"/></td>
                             </tr>
                             <tr>
-                                <td>Institute:</td><td><input id="institute" name="institute" size="40" /></td>
+                                <td>Institute:</td><td><input id="institute" name="institute" size="50" type="text" title="Your academic institute..." class="auto-hint"/></td>
                             </tr>
                             <tr>
-                                <td>Homepage:</td><td><input id="homepage" name="homepage" size="40" /></td>
-                            </tr>
-
-                            <tr>
-                                <td>Location:</td><td><input id="location" name="location" size="40" /></td> 
+                                <td>Homepage:</td><td><input id="homepage" name="homepage" size="50" type="text" title="http://" class="auto-hint"/></td>
                             </tr>
 
                             <tr>
-                                <td>DBLP:</td><td><input id="dblp_uri" name="dblp_uri" size="40" /></td>
+                                <td>Location:</td><td><input id="location" name="location" size="50" type="text" title="Where do you live..." class="auto-hint" /></td> 
+                            </tr>
+
+                            <tr>
+                                <td>DBLP:</td><td><input id="dblp_uri" name="dblp_uri" size="50" type="text" title="Search for your DBLP URI by name..." class="auto-hint"/></td>
                             </tr>
                         </table>
                         <br>

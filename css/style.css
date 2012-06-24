@@ -138,7 +138,6 @@ pre {
     padding-top:10px;
     position:fixed;
     bottom:0px;
-    width:100%;
 }
 
 
@@ -192,7 +191,7 @@ tr.whatNextRow {
 div.footerWrapper {
     position: absolute;
     bottom: 0px;
-    width: 100%
+    width: 100%;
 }
 
 div.footerTDiv {
@@ -210,5 +209,13 @@ div.centerButton {
 
 div.centerDiv {
     margin: auto;
-    width: 800px;
 }
+
+.input-prompt {
+  position: absolute;
+  font-style: italic;
+  color: #aaa;
+  margin: 0.2em 0 0 0.5em;
+}
+
+ .auto-hint { color: #AAAAAA; }

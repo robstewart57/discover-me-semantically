@@ -185,6 +185,32 @@ function goalChanged(){
     }
 }
 
+function addHint(elem){
+    elem.focus(focusHint);
+    elem.blur(focusBlur);
+    elem.each(focusEach);
+}
+
+function focusHint(){
+    if($(this).val() == $(this).attr('title')){
+        $(this).val('');
+        $(this).removeClass('auto-hint');
+    }
+}
+
+function focusBlur(){
+    if($(this).val() == '' && $(this).attr('title') != ''){
+	$(this).val($(this).attr('title'));
+	$(this).addClass('auto-hint');
+    }
+}
+
+function focusEach(){
+    if($(this).attr('title') == ''){ return; }
+    if($(this).val() == ''){ $(this).val($(this).attr('title')); }
+    else { $(this).removeClass('auto-hint'); }
+}
+
 
 /*
 $('input').live('blur change',function(){
