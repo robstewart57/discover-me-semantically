@@ -16,10 +16,10 @@ header("Content-Disposition: attachment; filename=" . $_POST['fileName']);
 
 function saveToFile($rawRDF, $fileName) {
 
-    $myFile = "rdf/" . $fileName;
-    $fh = fopen($myFile, 'w') or die("can't open file");
-    fwrite($fh, urldecode($rawRDF));
-    fclose($fh);
+  $myFile = "rdf/" . $fileName;
+  $fh = fopen($myFile, 'w') or die("can't open file");
+  fwrite($fh, urldecode($rawRDF));
+  fclose($fh);
 }
 
 saveToFile($_POST['rawRDF'], $_POST['fileName']);

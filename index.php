@@ -67,7 +67,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>
                     var i = expertiseArray.length + 1;
                     var expertiseField = "professional_expertise" + i;
 		    var expertiseLabel = "expertiseLbl" + i;
-                    var newRow = $("<tr><td>"+i+") </td><td><p><input id=\"" + expertiseField + "\" name=\"" + expertiseField + "\" size=\"50\" type=\"text\"/><label id=\"" + expertiseLabel + "\" for=\"" + expertiseField + "\">Add and area of expertise</label></p></td></tr>");
+                    var newRow = $("<tr><td>"+i+") </td><td><p><input id=\"" + expertiseField + "\" name=\"" + expertiseField + "\" size=\"50\" type=\"text\"/><label id=\"" + expertiseLabel + "\" for=\"" + expertiseField + "\">Add an area of expertise...</label></p></td></tr>");
                     professionalExpertiseTable.append(newRow);
                     expertiseArray.push( { item: i, field: expertiseField } );
                     document.getElementById('expertise_serialized').value=encodeURIComponent(JSON.stringify(expertiseArray));

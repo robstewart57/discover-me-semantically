@@ -159,8 +159,6 @@ var autoCompleteDBLPConferenceConfig = {
 };
 
 
-
-
 function goalChanged(){
     var optID = $(this).attr("id");
     var goalURI = jQuery("#"+optID).val();

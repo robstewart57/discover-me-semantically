@@ -17,143 +17,142 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>
 -->
 
-<?php
+   <?php
+   
+   error_reporting(E_ALL);
+              setlocale(LC_ALL, 'en_US.UTF8'); // for toAscii function
+              
+              include("include/Serializer.php");
+              define("RDFAPI_INCLUDE_DIR", "include/rdfapi-php/api/");
+              include(RDFAPI_INCLUDE_DIR . "RdfAPI.php");
+              include(RDFAPI_INCLUDE_DIR . "syntax/RdfSerializer.php");
+              include( RDFAPI_INCLUDE_DIR . 'vocabulary/RDFS_C.php');
+              include( RDFAPI_INCLUDE_DIR . 'vocabulary/DC_C.php');
+              include( RDFAPI_INCLUDE_DIR . 'vocabulary/FOAF_C.php');
+              
+              $domain="http://serena.macs.hw.ac.uk/serena/discover-me-semantically/";
+              
+              function toAscii($str, $replace = array(), $delimiter = '-') {
+                if (!empty($replace)) {
+                  $str = str_replace((array) $replace, ' ', $str);
+                }
+                
+                $clean = iconv('UTF-8', 'ASCII//TRANSLIT', $str);
+                $clean = preg_replace("/[^a-zA-Z0-9\/_|+ -]/", '', $clean);
+                $clean = strtolower(trim($clean, '-'));
+                $clean = preg_replace("/[\/_|+ -]+/", $delimiter, $clean);
 
-error_reporting(E_ALL);
-// ini_set('display_errors', '1');
-setlocale(LC_ALL, 'en_US.UTF8'); // for toAscii function
-
-include("include/Serializer.php");
-define("RDFAPI_INCLUDE_DIR", "include/rdfapi-php/api/");
-include(RDFAPI_INCLUDE_DIR . "RdfAPI.php");
-include(RDFAPI_INCLUDE_DIR . "syntax/RdfSerializer.php");
-include( RDFAPI_INCLUDE_DIR . 'vocabulary/RDFS_C.php');
-include( RDFAPI_INCLUDE_DIR . 'vocabulary/DC_C.php');
-include( RDFAPI_INCLUDE_DIR . 'vocabulary/FOAF_C.php');
-
-$domain="http://serena.macs.hw.ac.uk/serena/discover-me-semantically/";
-
-function toAscii($str, $replace = array(), $delimiter = '-') {
-    if (!empty($replace)) {
-        $str = str_replace((array) $replace, ' ', $str);
-    }
-
-    $clean = iconv('UTF-8', 'ASCII//TRANSLIT', $str);
-    $clean = preg_replace("/[^a-zA-Z0-9\/_|+ -]/", '', $clean);
-    $clean = strtolower(trim($clean, '-'));
-    $clean = preg_replace("/[\/_|+ -]+/", $delimiter, $clean);
-
-    return $clean;
-}
+                return $clean;
+              }
 
 function generateFileName($name) {
-    $i = 0;
+  $i = 0;
+  $fname = toAscii($name . $i) . ".rdf";
+  while (file_exists("rdf/" . $fname)) {
+    $i++;
     $fname = toAscii($name . $i) . ".rdf";
-    while (file_exists("rdf/" . $fname)) {
-        $i++;
-        $fname = toAscii($name . $i) . ".rdf";
-    }
-    return $fname;
+  }
+  return $fname;
 }
 
 function toSerenAURI($filename) {
-    global $domain;
+  global $domain;
     
-    return $domain."rdf/" . $filename;
+  return $domain."rdf/" . $filename;
 }
 
 function startsWith($haystack, $needle) {
-    $length = strlen($needle);
-    return (substr($haystack, 0, $length) === $needle);
+  $length = strlen($needle);
+  return (substr($haystack, 0, $length) === $needle);
 }
 
 function mapGoalFields($userURI, $varJS) {
 
-    $encoded = urldecode($_POST[$varJS]);
-    $json = json_decode($encoded, true);
+  $encoded = urldecode($_POST[$varJS]);
+  $json = json_decode($encoded, true);
 
-    $stmts = array();
-    $userRes = new resource($userURI);
+  $stmts = array();
+  $userRes = new resource($userURI);
 
-    foreach ($json as $elem) {
-        $goalPredicate = $_POST[$elem['goalType']];
-        $propRes = new resource($goalPredicate);
-        $goalURI = $_POST[$elem['field']];
-        $goalURI = str_replace('(', "%28", $goalURI);
-        $goalURI = str_replace(')', "%29", $goalURI);
-	if ($goalURI != ''){
-	  if (startsWith($goalURI, "http://")) {
-            $stmt = new Statement($userRes, $propRes, new resource($goalURI));
-	  }
-	  else {
-	    $stmt = new Statement($userRes, $propRes, new Literal($goalURI));
-	  }
-	  array_push($stmts, $stmt);
-	}
+  foreach ($json as $elem) {
+    $goalPredicate = $_POST[$elem['goalType']];
+    $propRes = new resource($goalPredicate);
+    $goalURI = $_POST[$elem['field']];
+    $goalURI = str_replace('(', "%28", $goalURI);
+    $goalURI = str_replace(')', "%29", $goalURI);
+    if ($goalURI != ''){
+      if (startsWith($goalURI, "http://")) {
+        $stmt = new Statement($userRes, $propRes, new resource($goalURI));
+      }
+      else {
+        $stmt = new Statement($userRes, $propRes, new Literal($goalURI));
+      }
+      array_push($stmts, $stmt);
     }
-    return $stmts;
+  }
+  return $stmts;
 }
 
 function mapSingleFormField($userURI, $varJS, $property, $prepend, $isURI) {
 
-    $stmts = array();
+  $stmts = array();
 
-    $userRes = new resource($userURI);
-    $propRes = new resource($property);
-    $obj = $_POST[$varJS];
+  $userRes = new resource($userURI);
+  $propRes = new resource($property);
+  $obj = $_POST[$varJS];
 
-    $objURI = $prepend . $obj;
-    $objURI = str_replace('(', "%28", $objURI);
-    $objURI = str_replace(')', "%29", $objURI);
-    if ($objURI != '') {
-      if ($isURI){
-	if (startsWith($objURI, "http://") || startsWith($objURI, "https://")) {
-	  $stmt = new Statement($userRes, $propRes, new resource($objURI));
-	  array_push($stmts, $stmt);
-	}
-      }
-      else {
-	$stmt = new Statement($userRes, $propRes, new Literal($objURI));
-	array_push($stmts, $stmt);
+  $objURI = $prepend . $obj;
+  $objURI = str_replace('(', "%28", $objURI);
+  $objURI = str_replace(')', "%29", $objURI);
+  if ($objURI != '') {
+    if ($isURI){
+      if (startsWith($objURI, "http://") || startsWith($objURI, "https://")) {
+        $stmt = new Statement($userRes, $propRes, new resource($objURI));
+        array_push($stmts, $stmt);
       }
     }
-    return $stmts;
+    else {
+      $stmt = new Statement($userRes, $propRes, new Literal($objURI));
+      array_push($stmts, $stmt);
+    }
+  }
+  return $stmts;
 }
 
 function mapSerializedFormField($userURI, $varJS, $property) {
 
-    $encoded = urldecode($_POST[$varJS]);
-    $json = json_decode($encoded, true);
+  $encoded = urldecode($_POST[$varJS]);
+  $json = json_decode($encoded, true);
 
-    $stmts = array();
-    $userRes = new resource($userURI);
-    $propRes = new resource($property);
+  $stmts = array();
+  $userRes = new resource($userURI);
+  $propRes = new resource($property);
 
-    foreach ($json as $elem) {
-        // Reason for this nonsense:
-        // http://www.proxml.be/users/paul/weblog/e67ab/Some_SPARQL_extension_function_tricks.html
-        $objURI = $_POST[$elem['field']];
-        $objURI = str_replace('(', "%28", $objURI);
-        $objURI = str_replace(')', "%29", $objURI);
+  foreach ($json as $elem) {
+    // Reason for this nonsense:
+    // http://www.proxml.be/users/paul/weblog/e67ab/Some_SPARQL_extension_function_tricks.html
+    $objURI = $_POST[$elem['field']];
+    $objURI = str_replace('(', "%28", $objURI);
+    $objURI = str_replace(')', "%29", $objURI);
 
-	if ($objURI != ''){
-	  if (startsWith($objURI, "http://")) {
-            $stmt = new Statement($userRes, $propRes, new resource($objURI));
-	  }
-	  else {
-	    $stmt = new Statement($userRes, $propRes, new Literal($objURI));
-	  }
-	  array_push($stmts, $stmt); 
-	}
+    if ($objURI != ''){
+      if (startsWith($objURI, "http://")) {
+        $stmt = new Statement($userRes, $propRes, new resource($objURI));
+      }
+      else {
+        $stmt = new Statement($userRes, $propRes, new Literal($objURI));
+      }
+      array_push($stmts, $stmt); 
     }
-    return $stmts;
+  }
+  return $stmts;
 }
 
 // $model is mutable.
 function addStmtsToModel($model, $stmts) {
-    foreach ($stmts as $stmt) {
-        $model->add($stmt);
-    }
+  foreach ($stmts as $stmt) {
+    $model->add($stmt);
+  }
 }
 
 define("FOAF", "http://xmlns.com/foaf/0.1/");
@@ -234,16 +233,16 @@ $rawRDF = $ser->serialize($model);
 $ser->saveAs($model, $fileName);
 
 $options = array(
-    "indent" => "    ",
-    "linebreak" => "\n",
-    "typeHints" => false,
-    "addDecl" => true,
-    "encoding" => "UTF-8",
-    "rootName" => "rdf:RDF",
-    "rootAttributes" => array("version" => "0.91"),
-    "defaultTagName" => "item",
-    "attributesArray" => "_attributes"
-);
+                 "indent" => "    ",
+                 "linebreak" => "\n",
+                 "typeHints" => false,
+                 "addDecl" => true,
+                 "encoding" => "UTF-8",
+                 "rootName" => "rdf:RDF",
+                 "rootAttributes" => array("version" => "0.91"),
+                 "defaultTagName" => "item",
+                 "attributesArray" => "_attributes"
+                 );
 
 $serializer = new XML_Serializer($options);
 $serializer->serialize($rawRDF);

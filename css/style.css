@@ -212,15 +212,6 @@ div.centerDiv {
     width: 800px;
 }
 
-/* .input-prompt { */
-/*   position: absolute; */
-/*   font-style: italic; */
-/*   color: #aaa; */
-/*   margin: 0.2em 0 0 0.5em; */
-/* } */
-
-/*  .auto-hint { color: #AAAAAA; } */
-
 form {
     position:relative
 }
@@ -234,7 +225,7 @@ label  {
 
 p {
     position: relative;
-    margin-top: 0.3em;
+    margin-top: 0em;
     margin-bottom: 0em;
     font-style: italic;
     color: #3787d2;
