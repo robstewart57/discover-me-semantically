@@ -46,17 +46,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>
     </head>
 
     <?php
-    error_reporting(E_ALL);
 
-    $domain = "http://serena.macs.hw.ac.uk/serena/discover-me-semantically/";
+include("readConf.php");
+error_reporting(E_ALL);
+$domain=getDomain("config.ini");
 
-    function saveToFile($rawRDF, $fileName) {
+function saveToFile($rawRDF, $fileName) {
 
-        $myFile = "rdf/" . $fileName;
-        $fh = fopen($myFile, 'w') or die("can't open file");
-        fwrite($fh, urldecode($rawRDF));
-        fclose($fh);
-    }
+  $myFile = "rdf/" . $fileName;
+  $fh = fopen($myFile, 'w') or die("can't open file");
+  fwrite($fh, urldecode($rawRDF));
+  fclose($fh);
+}
 
     saveToFile($_POST['rawRDF'], $_POST['fileName']);
 

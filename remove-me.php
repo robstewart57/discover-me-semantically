@@ -47,8 +47,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>
 
 <?php
 
+include("readConf.php");
+
 error_reporting(E_ALL);
-$domain="http://serena.macs.hw.ac.uk/serena/discover-me-semantically/";
+$domain=getDomain("config.ini");
 
 function fromURI($uri){
     global $domain;

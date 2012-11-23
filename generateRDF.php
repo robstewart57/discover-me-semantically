@@ -29,21 +29,22 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>
               include( RDFAPI_INCLUDE_DIR . 'vocabulary/RDFS_C.php');
               include( RDFAPI_INCLUDE_DIR . 'vocabulary/DC_C.php');
               include( RDFAPI_INCLUDE_DIR . 'vocabulary/FOAF_C.php');
+              include("readConf.php");
               
-              $domain="http://serena.macs.hw.ac.uk/serena/discover-me-semantically/";
+              $domain=getDomain("config.ini");
               
-              function toAscii($str, $replace = array(), $delimiter = '-') {
-                if (!empty($replace)) {
-                  $str = str_replace((array) $replace, ' ', $str);
-                }
+function toAscii($str, $replace = array(), $delimiter = '-') {
+  if (!empty($replace)) {
+    $str = str_replace((array) $replace, ' ', $str);
+  }
                 
-                $clean = iconv('UTF-8', 'ASCII//TRANSLIT', $str);
-                $clean = preg_replace("/[^a-zA-Z0-9\/_|+ -]/", '', $clean);
-                $clean = strtolower(trim($clean, '-'));
-                $clean = preg_replace("/[\/_|+ -]+/", $delimiter, $clean);
+  $clean = iconv('UTF-8', 'ASCII//TRANSLIT', $str);
+  $clean = preg_replace("/[^a-zA-Z0-9\/_|+ -]/", '', $clean);
+  $clean = strtolower(trim($clean, '-'));
+  $clean = preg_replace("/[\/_|+ -]+/", $delimiter, $clean);
 
-                return $clean;
-              }
+  return $clean;
+}
 
 function generateFileName($name) {
   $i = 0;
@@ -78,8 +79,6 @@ function mapGoalFields($userURI, $varJS) {
     $goalPredicate = $_POST[$elem['goalType']];
     $propRes = new resource($goalPredicate);
     $goalURI = $_POST[$elem['field']];
-    $goalURI = str_replace('(', "%28", $goalURI);
-    $goalURI = str_replace(')', "%29", $goalURI);
     if ($goalURI != ''){
       if (startsWith($goalURI, "http://")) {
         $stmt = new Statement($userRes, $propRes, new resource($goalURI));
@@ -102,8 +101,6 @@ function mapSingleFormField($userURI, $varJS, $property, $prepend, $isURI) {
   $obj = $_POST[$varJS];
 
   $objURI = $prepend . $obj;
-  $objURI = str_replace('(', "%28", $objURI);
-  $objURI = str_replace(')', "%29", $objURI);
   if ($objURI != '') {
     if ($isURI){
       if (startsWith($objURI, "http://") || startsWith($objURI, "https://")) {
@@ -129,11 +126,7 @@ function mapSerializedFormField($userURI, $varJS, $property) {
   $propRes = new resource($property);
 
   foreach ($json as $elem) {
-    // Reason for this nonsense:
-    // http://www.proxml.be/users/paul/weblog/e67ab/Some_SPARQL_extension_function_tricks.html
     $objURI = $_POST[$elem['field']];
-    $objURI = str_replace('(', "%28", $objURI);
-    $objURI = str_replace(')', "%29", $objURI);
 
     if ($objURI != ''){
       if (startsWith($objURI, "http://")) {
