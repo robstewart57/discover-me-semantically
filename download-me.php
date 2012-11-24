@@ -56,7 +56,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>
             <h3>Step 1 - Download the RDF file</h3>
 
             <div class="centerButton">
-                <form name="input" target="_blank" action="downloadRDF.php" method="post" >
+                <form name="input" target="_blank" action="downloadRDF-ToBrowserMemory.php" method="post" >
 
                     <input type="hidden" name="fileName" id="fileName" value="<?php echo $_POST['fileName']; ?>">
                     <input type="hidden" name="fileLoc" id="fileLoc" value="<?php echo $_POST['fileLoc']; ?>">

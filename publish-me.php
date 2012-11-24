@@ -47,17 +47,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>
 
     <?php
 
+include("downloadFile.php");
 include("readConf.php");
 error_reporting(E_ALL);
 $domain=getDomain("config.ini");
-
-function saveToFile($rawRDF, $fileName) {
-
-  $myFile = "rdf/" . $fileName;
-  $fh = fopen($myFile, 'w') or die("can't open file");
-  fwrite($fh, urldecode($rawRDF));
-  fclose($fh);
-}
 
     saveToFile($_POST['rawRDF'], $_POST['fileName']);
 

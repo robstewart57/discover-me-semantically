@@ -23,6 +23,7 @@ error_reporting(E_ALL);
 ini_set('display_errors', '1');
 
 include("include/Serializer.php");
+include("downloadFile.php");
 define("RDFAPI_INCLUDE_DIR", "include/rdfapi-php/api/");
 include(RDFAPI_INCLUDE_DIR . "RdfAPI.php");
 include(RDFAPI_INCLUDE_DIR . "syntax/RdfSerializer.php");
@@ -30,16 +31,9 @@ include( RDFAPI_INCLUDE_DIR . 'vocabulary/RDFS_C.php');
 include( RDFAPI_INCLUDE_DIR . 'vocabulary/DC_C.php');
 include( RDFAPI_INCLUDE_DIR . 'vocabulary/FOAF_C.php');
 
-
-function saveToFile($rawRDF,$fileName)
-{
-  $myFile = "rdf/".$fileName;
-  $fh = fopen($myFile, 'w') or die("can't open file");
-  fwrite($fh, urldecode($rawRDF));
-  fclose($fh);
-}
-
+/* From downloadFile.php */
 saveToFile($_POST['rawRDF'],$_POST['fileName']);
+
 $rdfURI=$_POST['fileLoc'];
 $lodLiveURI="http://lodlive.it/en/?".$rdfURI;
 header ("Location: ".$lodLiveURI); 
