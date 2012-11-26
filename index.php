@@ -51,28 +51,36 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>
                 var professionalExpertiseTable = $("#tableExpertise");
                 var goalsTable = $("#tableGoals");
 
-                var addInterestFunc = function() {
-                    var i = interestsArray.length + 1;
-                    var interestField = "personal_interest" + i;
-		    var interestLabel = "interestLbl" + i;
-                    var newRow = $("<tr><td>"+i+") </td><td><p><input id=\"" + interestField + "\" name=\"" + interestField + "\" size=\"50\" type=\"text\"/><label id=\""+interestLabel + "\" for=\"" + interestField + "\">Add an interest...</label></p></td></tr>");
-                    personalInterestsTable.append(newRow);
-                    interestsArray.push( { item: i, field: interestField } );
-                    document.getElementById('interests_serialized').value=encodeURIComponent(JSON.stringify(interestsArray));
-                    $("input#" + interestField).autocomplete( autoCompleteDBpediaConfig );
-		    $("#" + interestLabel).inFieldLabels();
-	        }
-
                 var addExpertiseFunc = function() {
-                    var i = expertiseArray.length + 1;
-                    var expertiseField = "professional_expertise" + i;
-		    var expertiseLabel = "expertiseLbl" + i;
-                    var newRow = $("<tr><td>"+i+") </td><td><p><input id=\"" + expertiseField + "\" name=\"" + expertiseField + "\" size=\"50\" type=\"text\"/><label id=\"" + expertiseLabel + "\" for=\"" + expertiseField + "\">Add an area of expertise...</label></p></td></tr>");
-                    professionalExpertiseTable.append(newRow);
-                    expertiseArray.push( { item: i, field: expertiseField } );
-                    document.getElementById('expertise_serialized').value=encodeURIComponent(JSON.stringify(expertiseArray));
-                    $("input#" + expertiseField).autocomplete( autoCompleteDBpediaConfig );
-		    $("#" + expertiseLabel).inFieldLabels();
+                      addElem(expertiseArray,
+                              "expertise_serialized",
+                              "professional_expertise",
+                              "expertiseLbl",
+                              "Add an area of expertise...",
+                              professionalExpertiseTable,
+                              autoCompleteDBpediaConfig);
+                    };
+                
+                var addInterestFunc  = function() {
+                      addElem(interestsArray,
+                              "interests_serialized",
+                              "personal_interest",
+                              "interestLbl",
+                              "Add an interest...",
+                              personalInterestsTable,
+                              autoCompleteDBpediaConfig);
+                    };
+
+                function addElem(arrayVal, serializedArray, fieldVal, labelVal, inputText, tableVal, autoCompleteCfg){
+                    var i = arrayVal.length + 1;
+                    var fieldVar = fieldVal + i;
+		    var labelVar = labelVal + i;
+                    var newRow = $("<tr><td>"+i+") </td><td><p><input id=\"" + fieldVar + "\" name=\"" + fieldVar + "\" size=\"50\" type=\"text\"/><label id=\"" + labelVar + "\" for=\"" + fieldVar + "\">" + inputText + "</label></p></td></tr>");
+                    tableVal.append(newRow);
+                    arrayVal.push( { item: i, field: fieldVar } );
+                    document.getElementById(serializedArray).value=encodeURIComponent(JSON.stringify(arrayVal));
+                    $("input#" + fieldVar).autocomplete( autoCompleteCfg );
+		    $("#" + labelVar).inFieldLabels();
                 }
 
                 var addGoalFunc = function() {
