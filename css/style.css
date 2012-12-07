@@ -123,7 +123,7 @@ pre {
 }
 
 .tinyFont {
-    font-size:x-small
+    font-size:x-small;
 }
 
 .ui-autocomplete-loading {

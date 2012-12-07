@@ -103,7 +103,7 @@ function mapSingleFormField($userURI, $varJS, $property, $prepend, $isURI) {
   $objURI = $prepend . $obj;
   if ($objURI != '') {
     if ($isURI){
-      if (startsWith($objURI, "http://") || startsWith($objURI, "https://")) {
+      if (startsWith($objURI, "http://") || startsWith($objURI, "https://") || startsWith($objURI, "mailto:")) {
         $stmt = new Statement($userRes, $propRes, new resource($objURI));
         array_push($stmts, $stmt);
       }
@@ -202,12 +202,16 @@ $stmtsAll = array_merge($stmtsAll, $stmts);
 $stmts = mapSerializedFormField($userURI, "expertise_serialized", CCO . "expertise");
 $stmtsAll = array_merge($stmtsAll, $stmts);
 
+$stmts = mapSerializedFormField($userURI, "findOutAbout_serialized", SERENA . "goalFindOutAbout");
+$stmtsAll = array_merge($stmtsAll, $stmts);
 
-/*
- *  Now for the specialized goal properties, where both
- *  property and object needs to be read from form
- */
-$stmts = mapGoalFields($userURI, "goals_serialized");
+$stmts = mapSerializedFormField($userURI, "meetPerson_serialized", SERENA . "goalMeet");
+$stmtsAll = array_merge($stmtsAll, $stmts);
+
+$stmts = mapSerializedFormField($userURI, "attendConf_serialized", SERENA . "goalAttendConference");
+$stmtsAll = array_merge($stmtsAll, $stmts);
+
+$stmts = mapSerializedFormField($userURI, "visitPlace_serialized", SERENA . "goalVisitPlace");
 $stmtsAll = array_merge($stmtsAll, $stmts);
 
 

@@ -27,11 +27,12 @@ function dbpediaGenericLookup(request, response) {
         url: "http://lookup.dbpedia.org/api/search.asmx/PrefixSearch?QueryClass=&MaxHits=20&QueryString=" + jQuery("#"+ID).val(),
         dataType: "xml",
         success: function (xml) {
-            $('ArrayOfResult',xml).children('Result').children('URI').each(function(){
-                var uri = decodeURI($(this).text());
+            $('ArrayOfResult',xml).children('Result').each(function(){
+                var uri = decodeURI($(this).find(">URI").text());
+                var lbl = $(this).find(">Label").text();
                 var elem = {
                     value: uri, 
-                    label: uri
+                    label: lbl
                 }
                 uriArray.push(elem);
             });
@@ -55,11 +56,12 @@ function dbpediaPlaceLookup(request, response) {
         url: "http://lookup.dbpedia.org/api/search.asmx/PrefixSearch?QueryClass=Place&MaxHits=20&QueryString=" + jQuery("#"+ID).val(),
         dataType: "xml",
         success: function (xml) {
-            $('ArrayOfResult',xml).children('Result').children('URI').each(function(){
-                var uri = $(this).text();
+            $('ArrayOfResult',xml).children('Result').each(function(){
+                var uri = decodeURI($(this).find(">URI").text());
+                var lbl = $(this).find(">Label").text();
                 var elem = {
                     value: uri, 
-                    label: uri
+                    label: lbl
                 }
                 uriArray.push(elem);
             });
@@ -83,10 +85,15 @@ function dblpAuthorLookup(request, response) {
     $.getJSON(url, function(data) {
 		       
         $.each(data.entries, function(i, entry) {
-            var uri = entry['link'];
+            var uri = entry.link;
+            var title = entry.title;
+            var lbl = "";
+            $.each(title, function(i, titleEntry) {
+                lbl = titleEntry.value.replace(/"/g, "");
+            });
             var elem = {
                 value: uri, 
-                label: uri
+                label: lbl
             }
             uriArray.push(elem);
         });
@@ -109,7 +116,12 @@ function dblpConferenceLookup(request, response) {
     $.getJSON(url, function(data) {
 		       
         $.each(data.entries, function(i, entry) {
-            var uri = entry['link'];
+            var uri = entry.link;
+            //var title = entry.title;
+            //var lbl = "";
+            // $.each(title, function(i, titleEntry) {
+            //    lbl = titleEntry.value.replace(/"/g, "");
+            // });
             var elem = {
                 value: uri, 
                 label: uri

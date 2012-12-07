@@ -22,6 +22,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>
 
     <head>
         <title>Discover Me Semantically</title>
+        <link rel="icon"  type="image/png" href="img/serena_logo.png">
         <link rel="stylesheet" href="css/style.css" type="text/css">
 
         <link href="css/jquery-ui.css" rel="stylesheet" type="text/css"/>
