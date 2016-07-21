@@ -10,7 +10,18 @@ This work has been carried out in the [SerenA](http://www.serena.ac.uk) project,
 
 ## Example
 
-Here is an instance of [Discover·me·Semantically](http://serena.macs.hw.ac.uk/serena/discover-me-semantically/) , to try it out for yourself.
+The interface starts with an input form:
+
+![Input form](web-images/dms-input.jpg)
+
+The generated RDF is given back:
+
+![Output form](web-images/dms-output.jpg)
+
+It can be displayed with the LOD Live tool directly:
+
+![LOD Live display](web-images/dms-display.jpg)
+
 
 # Installation
 
