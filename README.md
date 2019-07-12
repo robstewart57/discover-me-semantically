@@ -8,6 +8,33 @@ Discover·me·Semantically eases the pain of:
 
 This work has been carried out in the [SerenA](http://www.serena.ac.uk) project, as part of a larger investigation on the potential of serendipitous discovery with linked open data.
 
+## Citing this tool
+
+If you wish to cite this work, please use this bibtex:
+
+```
+@inproceedings{DBLP:conf/paams/ForthGWSBAMMSW13a,
+  author    = {Jamie Forth and
+               Athanasios Giannimaras and
+               Geraint A. Wiggins and
+               Robert J. Stewart and
+               Diana Bental and
+               Ruth Aylett and
+               Deborah Maxwell and
+               Hadi Mehrpouya and
+               Jamie Shek and
+               Mel Woods},
+  title     = {{Demonstrating SerenA: Chance Encounters in the Space of Ideas}},
+  booktitle = {Advances on Practical Applications of Agents and Multi-Agent Systems,
+               11th International Conference, {PAAMS} 2013, Salamanca, Spain, May
+               22-24, 2013. Proceedings},
+  pages     = {275--278},
+  year      = {2013},
+  volume    = {7879},
+  publisher = {Springer}
+}
+```
+
 ## Example
 
 The interface starts with an input form:
